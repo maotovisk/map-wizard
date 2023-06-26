@@ -57,10 +57,7 @@
       );
 
       copiedHitsound.forEach(async (hitsoundedBeatmap, key) => {
-        await writeFile(
-          "/home/maot/hitsoundedmap_" + key + ".osu",
-          hitsoundedBeatmap
-        );
+        await writeFile(selectedTo[key], hitsoundedBeatmap);
       });
     } catch (e) {
       console.log(e);
