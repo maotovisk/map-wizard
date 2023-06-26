@@ -147,7 +147,7 @@
     font-size: 14px;
     height: 35px;
     width: 600px;
-    padding: 8px 5px;
+    padding: 8px 10px;
   }
   .input-line > input[type="text"]:focus {
     outline: none;
