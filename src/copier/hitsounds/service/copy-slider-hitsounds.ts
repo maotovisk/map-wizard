@@ -1,5 +1,10 @@
 import { HitSample, HitSound } from "osu-classes";
-import { SliderTail, type Slider, StandardBeatmap, SliderTick } from "osu-standard-stable";
+import {
+  SliderTail,
+  type Slider,
+  StandardBeatmap,
+  SliderTick,
+} from "osu-standard-stable";
 import type { HitsoundableTimeLineObject, Options } from "src/copier/types";
 import { findNearestHitObject } from "../../utils";
 
@@ -36,8 +41,11 @@ export const copySliderHitsounds = ({
     });
 
     if (!clickableSound && options.overwriteNotDefined) {
+      const newSample = new HitSample();
+      newSample.hitSound = HitSound[HitSound.None];
+
       (hitsoundedBeatmap.hitObjects[key] as Slider).nodeSamples[key_ns] = [
-        new HitSample(),
+        newSample,
       ];
     }
     if (clickableSound) {
@@ -54,7 +62,10 @@ export const copySliderHitsounds = ({
   });
 
   if (!dragableSound && options.overwriteNotDefined) {
-    hitsoundedBeatmap.hitObjects[key].samples = [new HitSample()];
+    const newSample = new HitSample();
+    newSample.hitSound = HitSound[HitSound.None];
+
+    hitsoundedBeatmap.hitObjects[key].samples = [newSample];
     hitsoundedBeatmap.hitObjects[key].hitSound = HitSound.None;
   }
 

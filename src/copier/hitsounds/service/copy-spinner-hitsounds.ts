@@ -26,7 +26,10 @@ export const copySpinnerHitsounds = ({
   });
 
   if (!clickableSpinnerSound && options.overwriteNotDefined) {
-    hitsoundedBeatmap.hitObjects[key].samples = [new HitSample()];
+    const newSample = new HitSample();
+    newSample.hitSound = HitSound[HitSound.None];
+
+    hitsoundedBeatmap.hitObjects[key].samples = [newSample];
     hitsoundedBeatmap.hitObjects[key].hitSound = HitSound.None;
   }
 

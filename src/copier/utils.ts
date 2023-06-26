@@ -1,4 +1,4 @@
-import { HitSound, type HitSample } from "osu-classes";
+import { HitSound, HitSample, SampleSet } from "osu-classes";
 import {
   Circle,
   Slider,
@@ -25,6 +25,7 @@ export const convertBeatmapToHitsoundableTimeLine = (
   beatmap: StandardBeatmap
 ): HitsoundableTimeLineObject[] => {
   let hitsoundableTimeLineObject = [];
+  console.log(beatmap.hitObjects);
 
   beatmap.hitObjects.forEach((hitObject) => {
     if (hitObject instanceof Circle) {
@@ -35,6 +36,20 @@ export const convertBeatmapToHitsoundableTimeLine = (
         clickable: true,
       });
     } else if (hitObject instanceof Slider) {
+      // This is a temporary workaround for a bug with the parser library that we are using,
+      // which causes undefined hitsounds to be considered Normal hitsounds
+      // when the hit object is a slider.
+      if (
+        hitObject.samples.length == 1 &&
+        hitObject.samples[0].volume === 100 &&
+        hitObject.samples[0].sampleSet === SampleSet[SampleSet.Normal]
+      ) {
+        const newSample = new HitSample();
+        newSample.sampleSet = SampleSet[SampleSet.None];
+
+        hitObject.samples = [newSample];
+      }
+
       hitsoundableTimeLineObject.push({
         startTime: hitObject.startTime,
         HitSample: hitObject.samples,
@@ -46,7 +61,18 @@ export const convertBeatmapToHitsoundableTimeLine = (
         (nestedHitObject) => !(nestedHitObject instanceof SliderTick)
       );
 
-      (hitObject as Slider).nodeSamples.forEach((samples, key) => {
+      hitObject.nodeSamples.forEach((samples, key) => {
+        if (
+          samples.length == 1 &&
+          samples[0].volume === 100 &&
+          samples[0].sampleSet === SampleSet[SampleSet.Normal]
+        ) {
+          const newSample = new HitSample();
+          newSample.sampleSet = SampleSet[SampleSet.None];
+
+          samples = [newSample];
+        }
+
         hitsoundableTimeLineObject.push({
           startTime:
             nestedHitObjects[key] instanceof SliderTail
