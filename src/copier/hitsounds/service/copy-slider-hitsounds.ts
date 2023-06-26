@@ -1,7 +1,7 @@
 import { HitSample, HitSound } from "osu-classes";
 import { SliderTail, type Slider, StandardBeatmap, SliderTick } from "osu-standard-stable";
 import type { HitsoundableTimeLineObject, Options } from "src/copier/types";
-import { findNearestHitObject } from "src/copier/utils";
+import { findNearestHitObject } from "../../utils";
 
 export type CopySliderHitsoundsParams = {
   clickableHitsoundObjects: HitsoundableTimeLineObject[];

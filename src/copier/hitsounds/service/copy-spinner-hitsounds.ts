@@ -2,7 +2,7 @@ import type { Spinner, StandardBeatmap } from "osu-standard-stable";
 import type { HitsoundableTimeLineObject, Options } from "src/copier/types";
 
 import { HitSample, HitSound } from "osu-classes";
-import { findNearestHitObject } from "src/copier/utils";
+import { findNearestHitObject } from "../../utils";
 
 export type CopySpinnerHitsoundsParams = {
   dragableHitsoundObjects: HitsoundableTimeLineObject[];
