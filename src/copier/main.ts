@@ -12,10 +12,16 @@ const copy = (
   const ruleset = new StandardRuleset();
 
   const beatmapFrom = ruleset.applyToBeatmap(
-    decoder.decodeFromString(fromContent)
+    decoder.decodeFromString(fromContent, {
+      parseStoryboard: true,
+    })
   );
   const beatmapsTo = toContent.map((beatmapString) =>
-    ruleset.applyToBeatmap(decoder.decodeFromString(beatmapString))
+    ruleset.applyToBeatmap(
+      decoder.decodeFromString(beatmapString, {
+        parseStoryboard: true,
+      })
+    )
   );
 
   const hitsoundedBeatmap = beatmapsTo.map((beatmap) =>
