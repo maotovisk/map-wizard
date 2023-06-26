@@ -14,7 +14,7 @@ export const copyHitsounds = (
   destinationBeatmap: StandardBeatmap,
   options: Options
 ): StandardBeatmap => {
-  const hitsoundedBeatmap = structuredClone(destinationBeatmap);
+  const hitsoundedBeatmap = destinationBeatmap;
 
   if (options.copySamplesetChanges || options.copyVolumes) {
     copyVolumes({
