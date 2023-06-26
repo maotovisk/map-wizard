@@ -2,12 +2,9 @@
   import FooterBar from "./lib/FooterBar.svelte";
   import HeaderBar from "./lib/HeaderBar.svelte";
   import FileInput from "./lib/FileInput.svelte";
-  import Checkbox from "@smui/checkbox";
   import { exists, readTextFile, writeFile } from "@tauri-apps/api/fs";
   import { message } from "@tauri-apps/api/dialog";
   import { copy } from "./copier/main";
-
-  const DEBUG = true;
 
   let selectedFrom: string[] = [];
   let selectedTo: string[] = [];
