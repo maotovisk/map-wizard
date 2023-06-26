@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "hitsound-copier",
-    "version": "0.0.0"
+    "version": "0.0.1"
   },
   "tauri": {
     "allowlist": {
@@ -47,7 +47,7 @@
     "bundle": {
       "active": true,
       "targets": "all",
-      "identifier": "com.tauri.dev",
+      "identifier": "dev.maot.hitsound-copier",
       "icon": [
         "icons/32x32.png",
         "icons/128x128.png",
