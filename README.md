@@ -1,4 +1,4 @@
-<center><img src="app-icon.png" alt="drawing" width="200"/></center>
+<p align="center"><img src="app-icon.png" alt="drawing" width="200"/></p>
 
 # Hitsound Copier
 
