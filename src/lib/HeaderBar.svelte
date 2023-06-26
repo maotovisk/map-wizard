@@ -1,20 +1,23 @@
 <script lang="ts">
   import { appWindow } from "@tauri-apps/api/window";
+  import { getVersion } from "@tauri-apps/api/app";
   import { onMount } from "svelte";
   let maximized = false;
+  let appVersion = "0.0.1";
 
   appWindow.onResized(async () => {
     maximized = await appWindow.isMaximized();
   });
 
   onMount(async () => {
+    appVersion = await getVersion();
     maximized = await appWindow.isMaximized();
   });
 </script>
 
 <div class="header-bar">
   <div data-tauri-drag-region class="title">
-    <span class="title-text">Hitsound Copier v0.0.1</span>
+    <span class="title-text">Hitsound Copier v{appVersion}</span>
   </div>
   <div
     class="titlebar-button"
