@@ -2,18 +2,21 @@
   import FooterBar from "./lib/FooterBar.svelte";
   import HeaderBar from "./lib/HeaderBar.svelte";
   import FileInput from "./lib/FileInput.svelte";
+  import Checkbox from "@smui/checkbox";
   import { exists, readTextFile, writeFile } from "@tauri-apps/api/fs";
   import { message } from "@tauri-apps/api/dialog";
   import { copy } from "./copier/main";
 
   const DEBUG = true;
 
-  let selectedFrom: string[] = [
-    "/home/maot/.local/share/osu-wine/osu!/Songs/1950809 SiM - UNDER THE TREE(1)/SiM - UNDER THE TREE (Stixy) [Dream].osu",
-  ];
-  let selectedTo: string[] = [
-    "/home/maot/.local/share/osu-wine/osu!/Songs/1950809 SiM - UNDER THE TREE(1)/SiM - UNDER THE TREE (Stixy) [ROSIIE'S INSANE].osu",
-  ];
+  let selectedFrom: string[] = [];
+  let selectedTo: string[] = [];
+
+  let removeMutingOption: boolean = true;
+  let copySamplesOption: boolean = true;
+  let copyVolumesOption: boolean = true;
+  let overwriteNotDefinedOption: boolean = true;
+  let timingThresholdOption: number = 5;
 
   const copyHitsounds = async () => {
     try {
@@ -42,11 +45,11 @@
 
       //aq aocntece algo
       const copiedHitsound = await copy(fromContent, toContent, {
-        timingThreshold: 5,
-        removeMuting: true,
-        copySamplesetChanges: true,
-        copyVolumes: true,
-        overwriteNotDefined: true,
+        timingThreshold: timingThresholdOption,
+        removeMuting: removeMutingOption,
+        copySamplesetChanges: copySamplesOption,
+        copyVolumes: copyVolumesOption,
+        overwriteNotDefined: overwriteNotDefinedOption,
       });
 
       await message(
@@ -82,6 +85,28 @@
       <div class="options-field">
         <span>Options</span>
         <hr class="header" />
+        <ul class="options">
+          <li>
+            <input type="checkbox" bind:checked={removeMutingOption} />
+            <span>Remove muting (5% volumes)</span>
+          </li>
+          <li>
+            <input type="checkbox" bind:checked={copySamplesOption} />
+            <span>Copy sampleset changes (greenlines)</span>
+          </li>
+          <li>
+            <input type="checkbox" bind:checked={copyVolumesOption} />
+            <span>Copy volumes changes (greenlines)</span>
+          </li>
+          <li>
+            <input type="checkbox" bind:checked={overwriteNotDefinedOption} />
+            <span>Ovewrite not defined hitsounds</span>
+          </li>
+          <li>
+            <input type="range" bind:value={timingThresholdOption} />
+            <span>Timing threshould ({timingThresholdOption}ms)</span>
+          </li>
+        </ul>
       </div>
       <div class="action-field">
         <button class="btn" on:click={copyHitsounds}>Copy Hitsound</button>
@@ -118,20 +143,6 @@
     height: 100%;
     min-width: 340px;
   }
-
-  .options-field {
-    min-height: 120px;
-    width: 100%;
-    max-width: 600px;
-  }
-  .options-field > span {
-    font-size: 12px;
-    color: #8d8d8d;
-  }
-  .options-field > .header {
-    border: 0;
-    border-bottom: 1px solid #8d8d8d;
-  }
   .action-field {
     display: flex;
     width: 100%;
@@ -149,5 +160,27 @@
   }
   .action-field > .btn:hover {
     background-color: #42995f;
+  }
+
+  .options-field {
+    min-height: 120px;
+    width: 100%;
+    max-width: 600px;
+  }
+  .options-field > span {
+    font-size: 12px;
+    color: #8d8d8d;
+  }
+  .options-field > .header {
+    border: 0;
+    border-bottom: 1px solid #8d8d8d;
+    margin-bottom: 5px;
+  }
+
+  .options {
+    color: #f2f2f2;
+  }
+  .options > li {
+    list-style: none;
   }
 </style>
