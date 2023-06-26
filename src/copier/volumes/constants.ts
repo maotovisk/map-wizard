@@ -1,0 +1,1 @@
+export const DEFAULT_MUTED_VOLUME_PERCENTAGE = 5;

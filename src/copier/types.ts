@@ -1,4 +1,4 @@
-import type { ControlPointGroup, HitSample, HitSound } from "osu-classes";
+import type { HitSample, HitSound } from "osu-classes";
 
 export type Options = {
   copyVolumes: boolean;
