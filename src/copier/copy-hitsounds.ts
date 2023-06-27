@@ -7,7 +7,7 @@ import {
   copySliderHitsounds,
   copySpinnerHitsounds,
 } from "./hitsounds/service";
-import { copyVolumes } from "./volumes/services/copy";
+import { copySamplePoints } from "./control-points/services/copy";
 
 export const copyHitsounds = (
   originBeatmap: StandardBeatmap,
@@ -17,7 +17,7 @@ export const copyHitsounds = (
   const hitsoundedBeatmap = destinationBeatmap;
 
   if (options.copySamplesetChanges || options.copyVolumes) {
-    copyVolumes({
+    copySamplePoints({
       originBeatmap,
       destinationBeatmap,
       options,

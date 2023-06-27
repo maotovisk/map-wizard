@@ -1,47 +1,48 @@
 import type { StandardBeatmap } from "osu-standard-stable";
 import type { Options } from "src/copier/types";
 
-import { ControlPointType } from "osu-classes";
+import { ControlPointType, DifficultyPoint } from "osu-classes";
 import { isMuted } from "./is-muted";
 
-type CopyVolumesParams = {
+type CopySamplePointsParams = {
   originBeatmap: StandardBeatmap;
   destinationBeatmap: StandardBeatmap;
   options: Options;
 };
 
-export const copyVolumes = ({
+export const copySamplePoints = ({
   originBeatmap,
   destinationBeatmap,
   options,
-}: CopyVolumesParams) => {
-  const fromBeatmapSamplePoints = originBeatmap.controlPoints.samplePoints;
-  let toBeatmapSamplePoints = destinationBeatmap.controlPoints.samplePoints;
+}: CopySamplePointsParams) => {
+  const originBeatmapSamplePoints = originBeatmap.controlPoints.samplePoints;
+  let destinationBeatmapSamplePoints =
+    destinationBeatmap.controlPoints.samplePoints;
 
-  fromBeatmapSamplePoints.forEach((samplePoint) => {
+  originBeatmapSamplePoints.forEach((samplePoint) => {
     if (!options.copySamplesetChanges) return;
 
     if (options.removeMuting && isMuted(samplePoint.volume)) return;
 
-    const fromBeatmapSamplePoint =
+    const destinationBeatmapSamplePoint =
       destinationBeatmap.controlPoints.samplePointAt(samplePoint.startTime);
 
     if (!options.copyVolumes)
-      samplePoint.volume = fromBeatmapSamplePoint.volume;
+      samplePoint.volume = destinationBeatmapSamplePoint.volume;
 
     destinationBeatmap.controlPoints
       .groupAt(samplePoint.startTime)
-      .remove(fromBeatmapSamplePoint);
+      .remove(destinationBeatmapSamplePoint);
 
     destinationBeatmap.controlPoints
       .groupAt(samplePoint.startTime)
       .add(samplePoint);
   });
 
-  toBeatmapSamplePoints = [...fromBeatmapSamplePoints];
+  destinationBeatmapSamplePoints = [...originBeatmapSamplePoints];
 
   if (options.removeMuting) {
-    toBeatmapSamplePoints.forEach((samplePoint) => {
+    destinationBeatmapSamplePoints.forEach((samplePoint) => {
       if (isMuted(samplePoint.volume)) {
         destinationBeatmap.controlPoints
           .groupAt(samplePoint.startTime)
@@ -49,6 +50,9 @@ export const copyVolumes = ({
       }
     });
   }
+
+  // This is a hack to prevent that the destination is encoded with a 0 offset
+  // sample point that happens before the first timing point.
 
   const firstDestinationControlPointGroup =
     destinationBeatmap.controlPoints.groups[0];
@@ -79,5 +83,20 @@ export const copyVolumes = ({
       .add(firstDestinationControlPointGroup.controlPoints[0]);
 
     destinationBeatmap.controlPoints.groups.shift();
+
+    const difficultyPointInSecondDestinationGroup =
+      secondDestionationControlPointGroup.controlPoints.find(
+        (controlPoint) =>
+          controlPoint.pointType === ControlPointType.DifficultyPoint
+      );
+
+    if (!difficultyPointInSecondDestinationGroup) {
+      const newDifficultyPoint = new DifficultyPoint();
+      newDifficultyPoint.sliderVelocity = 1;
+
+      destinationBeatmap.controlPoints
+        .groupAt(secondDestionationControlPointGroup.startTime)
+        .add(newDifficultyPoint);
+    }
   }
 };
