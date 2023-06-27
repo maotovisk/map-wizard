@@ -2,7 +2,42 @@
 
 # Hitsound Copier
 
-Cross platfrom hitsound copier for osu! standard maps (for now) written in TypeScript using Tauri. Using https://github.com/kionell/osu-parsers, and osu!lazer hitsound logic as base. Was done mostly out of the necessity for some hitsound copier that was easy to use with Linux. Mapping tools is still a really good solution to hitsound copying if you're on Windows.
+Cross platfrom hitsound copier for osu! standard beatmaps (for now) written in TypeScript, using osu!lazer's hitsound logic as base. It was done so we could have a hitsound copier solution that was friendly to run on Linux without the need of third party tools.
+
+## Tools
+
+- Tauri
+- TypeScript
+- [osu-parsers](https://github.com/kionell/osu-parsers)
+
+## Running
+
+If you wish to run the project on your local machine, follow the instructions below:
+
+Requirements
+
+- [NodeJS](https://nodejs.org/en) (18 or higher)
+- [pnpm](https://pnpm.io/)
+
+### 1. Clone the project
+
+
+```bash
+git clone https://github.com/maotovisk/hitsound-copier.git
+```
+
+### 2. Install the project's dependencies;
+
+```bash
+pnpm install 
+# pnpm i
+```
+
+### 3. Run the project
+
+```bash
+pnpm tauri dev
+```
 
 ## TODOs
 
