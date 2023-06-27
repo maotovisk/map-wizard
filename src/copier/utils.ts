@@ -1,4 +1,8 @@
-import { HitSound, HitSample, SampleSet } from "osu-classes";
+import type {
+  FindNearestHitObjectParams,
+  HitsoundableTimeLineObject,
+} from "./types";
+
 import {
   Circle,
   Slider,
@@ -7,10 +11,7 @@ import {
   Spinner,
   type StandardBeatmap,
 } from "osu-standard-stable";
-import type {
-  FindNearestHitObjectParams,
-  HitsoundableTimeLineObject,
-} from "./types";
+import { HitSound, HitSample, SampleSet } from "osu-classes";
 
 export const calculateSampleBitwise = (samples: HitSample[]) => {
   let bitwise = 0;
@@ -21,11 +22,28 @@ export const calculateSampleBitwise = (samples: HitSample[]) => {
   return bitwise;
 };
 
+const resetUndefinedHitsoundSamples = (samples: HitSample[]) => {
+  // This is a temporary workaround for a bug with the parser library that we are using,
+  // which causes undefined hitsounds to be considered Normal hitsounds
+  // when the hit object is a slider.
+
+  if (
+    samples.length == 1 &&
+    samples[0].volume === 100 &&
+    samples[0].sampleSet === SampleSet[SampleSet.Normal]
+  ) {
+    const newSample = new HitSample();
+
+    newSample.sampleSet = SampleSet[SampleSet.None];
+
+    samples = [newSample];
+  }
+};
+
 export const convertBeatmapToHitsoundableTimeLine = (
   beatmap: StandardBeatmap
 ): HitsoundableTimeLineObject[] => {
-  let hitsoundableTimeLineObject = [];
-  console.log(beatmap.hitObjects);
+  const hitsoundableTimeLineObject: Array<HitsoundableTimeLineObject> = [];
 
   beatmap.hitObjects.forEach((hitObject) => {
     if (hitObject instanceof Circle) {
@@ -35,20 +53,12 @@ export const convertBeatmapToHitsoundableTimeLine = (
         HitSound: hitObject.hitSound,
         clickable: true,
       });
-    } else if (hitObject instanceof Slider) {
-      // This is a temporary workaround for a bug with the parser library that we are using,
-      // which causes undefined hitsounds to be considered Normal hitsounds
-      // when the hit object is a slider.
-      if (
-        hitObject.samples.length == 1 &&
-        hitObject.samples[0].volume === 100 &&
-        hitObject.samples[0].sampleSet === SampleSet[SampleSet.Normal]
-      ) {
-        const newSample = new HitSample();
-        newSample.sampleSet = SampleSet[SampleSet.None];
 
-        hitObject.samples = [newSample];
-      }
+      return;
+    }
+
+    if (hitObject instanceof Slider) {
+      resetUndefinedHitsoundSamples(hitObject.samples);
 
       hitsoundableTimeLineObject.push({
         startTime: hitObject.startTime,
@@ -62,35 +72,34 @@ export const convertBeatmapToHitsoundableTimeLine = (
       );
 
       hitObject.nodeSamples.forEach((samples, key) => {
-        if (
-          samples.length == 1 &&
-          samples[0].volume === 100 &&
-          samples[0].sampleSet === SampleSet[SampleSet.Normal]
-        ) {
-          const newSample = new HitSample();
-          newSample.sampleSet = SampleSet[SampleSet.None];
+        resetUndefinedHitsoundSamples(samples);
 
-          samples = [newSample];
-        }
+        const keyStartTime = Math.round(nestedHitObjects[key].startTime);
+        const newHitSoundBitwise = calculateSampleBitwise(samples);
 
         hitsoundableTimeLineObject.push({
           startTime:
             nestedHitObjects[key] instanceof SliderTail
-              ? Math.round(nestedHitObjects[key].startTime) +
-                hitObject.legacyLastTickOffset
-              : Math.round(nestedHitObjects[key].startTime),
+              ? keyStartTime + hitObject.legacyLastTickOffset
+              : keyStartTime,
           HitSample: samples,
-          HitSound: calculateSampleBitwise(samples),
+          HitSound: newHitSoundBitwise,
           clickable: true,
         });
       });
-    } else if (hitObject instanceof Spinner) {
+
+      return;
+    }
+
+    if (hitObject instanceof Spinner) {
       hitsoundableTimeLineObject.push({
         startTime: hitObject.endTime,
         HitSample: hitObject.samples,
         HitSound: hitObject.hitSound,
         clickable: true,
       });
+
+      return;
     }
   });
 
