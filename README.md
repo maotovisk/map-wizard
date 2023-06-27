@@ -6,7 +6,6 @@
 Cross platfrom hitsound copier for osu! standard beatmaps (for now) written in TypeScript, using osu!lazer's hitsound logic as base. It was done so we could have a hitsound copier solution that was friendly to run on Linux without the need of third party tools.
 
 <br/>
-<br/>
 
 ### Built with
 
