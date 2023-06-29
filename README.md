@@ -16,6 +16,9 @@ Cross platfrom hitsound copier for osu! standard beatmaps (for now) written in T
 <br/>
 
 ## Running
+You can either grab the [latest release](https://github.com/octo-org/octo-repo/releases/latest) or build it by yourself.
+
+### Building
 
 If you wish to run the project on your local machine, follow the instructions below:
 
@@ -23,22 +26,23 @@ Requirements
 
 - [NodeJS](https://nodejs.org/en) (18 or higher)
 - [pnpm](https://pnpm.io/)
+- [rust](https://rustup.rs/)
 
-### 1. Clone the project
+#### 1. Clone the project
 
 
 ```bash
 git clone https://github.com/maotovisk/hitsound-copier.git
 ```
 
-### 2. Install the project's dependencies;
+#### 2. Install the project's dependencies
 
 ```bash
 pnpm install 
 # pnpm i
 ```
 
-### 3. Run the project
+#### 3. Run the project
 
 ```bash
 pnpm tauri dev
@@ -46,6 +50,7 @@ pnpm tauri dev
 
 ## TODOs
 
+- Add metadata manager funcionality.
 - Add map cleaner funcionality.
-- Fix some extra greenlines being generated.
+- Fix some unnecessary greenlines being generated.
 - Release to flathub.
