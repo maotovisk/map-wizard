@@ -1,5 +1,8 @@
 import type { Spinner, StandardBeatmap } from "osu-standard-stable";
-import type { HitsoundableTimeLineObject, Options } from "src/copier/types";
+import type {
+  HitsoundableTimeLineObject,
+  Options,
+} from "src/tools/copier/types";
 
 import { HitSample, HitSound } from "osu-classes";
 import { findNearestHitObject } from "../../utils";
