@@ -8,13 +8,12 @@
     let request = await fetch(
       "https://api.github.com/repos/maotovisk/hitsound-copier/releases"
     );
-
     releases = await request.json();
   });
 </script>
 
 <div class="padding">
-  <h6>News</h6>
+  <h6>Latest updates</h6>
   <div class="small-divider" />
   {#if releases && Array.isArray(releases)}
     {#each releases as release}
@@ -35,11 +34,13 @@
           <p class="padding">
             <SvelteMarkdown
               source={release.body}
-              renderers={{ heading: Handler }}
+              renderers={{ heading: Handler, link: Handler }}
             />
           </p>
         </details>
       </article>
     {/each}
+  {:else}
+    <div class="row center-align middle-align"><a class="loader" /></div>
   {/if}
 </div>
