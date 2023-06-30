@@ -65,6 +65,8 @@
 </script>
 
 <div class="padding">
+  <h6>Hitsound Copier</h6>
+  <div class="small-divider" />
   <FileInput
     textLabel="Beatmap you want to copy the hitsound from"
     bind:selected={selectedFrom}
@@ -80,81 +82,83 @@
     <span>Options</span>
   </div>
   <div class="small-divider" />
-  <div class="row">
-    <div class="field middle-align max">
-      <nav>
-        <div class="max">
-          <h6>Remove muting</h6>
-          <div>Removes the 5% volume greenlines</div>
-        </div>
-        <label class="switch">
-          <input type="checkbox" bind:checked={removeMutingOption} />
-          <span />
-        </label>
-      </nav>
-    </div>
-  </div>
-  <div class="row">
-    <div class="field middle-align max">
-      <nav>
-        <div class="max">
-          <h6>Copy sampleset changes</h6>
-          <div>Copy all the sampleset changes in greenlines</div>
-        </div>
-        <label class="switch">
-          <input type="checkbox" bind:checked={copySamplesOption} />
-          <span />
-        </label>
-      </nav>
-    </div>
-  </div>
-  <div class="row">
-    <div class="field middle-align max">
-      <nav>
-        <div class="max">
-          <h6>Copy volumes changes</h6>
-          <div>Copy all the volumes changes in greenlines</div>
-        </div>
-        <label class="switch">
-          <input type="checkbox" bind:checked={copyVolumesOption} />
-          <span />
-        </label>
-      </nav>
-    </div>
-  </div>
-  <div class="row">
-    <div class="field middle-align max">
-      <nav>
-        <div class="max">
-          <h6>Ovewrite all hitsounds</h6>
-          <div>
-            All hitsounds not defined in the origin beatmap will also be not
-            defined in the target
+  <article class="surface-variant">
+    <div class="row">
+      <div class="field middle-align max">
+        <nav>
+          <div class="max">
+            <span>Remove muting</span>
+            <div>Removes the 5% volume greenlines</div>
           </div>
-        </div>
-        <label class="switch">
-          <input type="checkbox" bind:checked={overwriteNotDefinedOption} />
-          <span />
-        </label>
-      </nav>
+          <label class="switch">
+            <input type="checkbox" bind:checked={removeMutingOption} />
+            <span />
+          </label>
+        </nav>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="field middle-align max">
-      <nav>
-        <div class="max">
-          <h6>Timing threshould</h6>
-          <div>
-            Current threshould: {timingThresholdOption}ms
+    <div class="row">
+      <div class="field middle-align max">
+        <nav>
+          <div class="max">
+            <span>Copy sampleset changes</span>
+            <div>Copy all the sampleset changes in greenlines</div>
           </div>
-        </div>
-        <label class="slider">
-          <input type="range" bind:value={timingThresholdOption} />
-          <span />
-        </label>
-      </nav>
+          <label class="switch">
+            <input type="checkbox" bind:checked={copySamplesOption} />
+            <span />
+          </label>
+        </nav>
+      </div>
     </div>
-  </div>
+    <div class="row">
+      <div class="field middle-align max">
+        <nav>
+          <div class="max">
+            <span>Copy volumes changes</span>
+            <div>Copy all the volumes changes in greenlines</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" bind:checked={copyVolumesOption} />
+            <span />
+          </label>
+        </nav>
+      </div>
+    </div>
+    <div class="row">
+      <div class="field middle-align max">
+        <nav>
+          <div class="max">
+            <span>Ovewrite all hitsounds</span>
+            <div>
+              All hitsounds not defined in the origin beatmap will also be not
+              defined in the target
+            </div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" bind:checked={overwriteNotDefinedOption} />
+            <span />
+          </label>
+        </nav>
+      </div>
+    </div>
+    <div class="row">
+      <div class="field middle-align max">
+        <nav>
+          <div class="max">
+            <span>Timing threshould</span>
+            <div>
+              Current threshould: {timingThresholdOption}ms
+            </div>
+          </div>
+          <label class="slider">
+            <input type="range" bind:value={timingThresholdOption} />
+            <span />
+          </label>
+        </nav>
+      </div>
+    </div>
+  </article>
   <div class="row">
     <div class="max" />
     <button class="extend square round" on:click={copyHitsoundsAction}>

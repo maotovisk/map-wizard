@@ -14,7 +14,7 @@
   };
 
   onMount(async () => {
-    await ui("theme", "#C1E1C1");
+    await ui("theme", "#c43b80");
 
     appVersion = await getVersion();
     maximized = await appWindow.isMaximized();

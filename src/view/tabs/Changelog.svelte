@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import SvelteMarkdown from "svelte-markdown";
+  import Handler from "../lib/Handler.svelte";
 
   let releases: unknown = null;
   onMount(async () => {
@@ -32,7 +33,10 @@
             </div>
           </summary>
           <p class="padding">
-            <SvelteMarkdown source={release.body} />
+            <SvelteMarkdown
+              source={release.body}
+              renderers={{ heading: Handler }}
+            />
           </p>
         </details>
       </article>
