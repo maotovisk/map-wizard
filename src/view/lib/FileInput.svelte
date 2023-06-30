@@ -71,32 +71,34 @@
   export { isUnique, selected, defaultFilePath, textLabel };
 </script>
 
-<div class="row middle-align">
-  <div class="field label max">
-    <input type="text" bind:value={selected[0]} />
-    <label>{textLabel}</label>
-  </div>
-  {#if !isUnique}
-    <strong>Selected {selected.length} file(s)</strong>
-  {/if}
-  <button class="transparent circle" on:click={selectFrom}>
-    <i>file_open</i>
-  </button>
-</div>
-{#if selected.length > 1}
-  {#each selected as selected_file, i}
-    {#if i > 0}
-      <div class="row">
-        <div class="field max">
-          <input type="text" bind:value={selected[i]} />
-        </div>
-        <button
-          class="transparent circle"
-          on:click={() => removeFromList(selected_file)}
-        >
-          <i>close</i>
-        </button>
-      </div>
+<article class="surface-variant">
+  <div class="row middle-align">
+    <div class="field label max">
+      <input type="text" bind:value={selected[0]} />
+      <label>{textLabel}</label>
+    </div>
+    {#if !isUnique}
+      <strong>Selected {selected.length} file(s)</strong>
     {/if}
-  {/each}
-{/if}
+    <button class="transparent circle" on:click={selectFrom}>
+      <i>file_open</i>
+    </button>
+  </div>
+  {#if selected.length > 1}
+    {#each selected as selected_file, i}
+      {#if i > 0}
+        <div class="row">
+          <div class="field max">
+            <input type="text" bind:value={selected[i]} />
+          </div>
+          <button
+            class="transparent circle"
+            on:click={() => removeFromList(selected_file)}
+          >
+            <i>close</i>
+          </button>
+        </div>
+      {/if}
+    {/each}
+  {/if}
+</article>

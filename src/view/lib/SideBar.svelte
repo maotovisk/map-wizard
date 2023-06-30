@@ -1,14 +1,14 @@
 <script lang="ts">
   import { Link } from "svelte-routing";
 
-  let currentUrl = "";
+  let currentUrl = "/home";
 
   const updateUrl = (toRoute: string) => {
     currentUrl = toRoute;
   };
 </script>
 
-<nav class="m l left secondary">
+<nav class="left secondary">
   <header class="fixed" />
   <Link
     class="row round {currentUrl.includes('/home') ? 'active' : ''}"
@@ -26,6 +26,8 @@
     <i>file_copy</i>
     <span>Hitsound Copier</span>
   </Link>
+  <div class="max" />
+  <div class="medium-divisor" />
   <Link
     class="row round {currentUrl.includes('/settings') ? 'active' : ''}"
     to="/settings"

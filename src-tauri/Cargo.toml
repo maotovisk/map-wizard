@@ -1,6 +1,6 @@
 [package]
 name = "hitsound-copier"
-version = "0.0.6"
+version = "0.0.7"
 description = "A osu! mapping toolbox made in TS with tauri"
 authors = ["maotovisk"]
 license = ""
