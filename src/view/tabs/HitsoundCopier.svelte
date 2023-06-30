@@ -17,9 +17,10 @@
   const copyHitsoundsAction = async () => {
     try {
       if (selectedFrom.length == 0 || !(await exists(selectedFrom[0])))
-        return message("Origin beatmap file not found", {
-          title: "Hitsound Copier",
-          type: "error",
+        return window.sendNotification({
+          color: "error",
+          message: "Selected origin beatmap file not found",
+          icon: "error",
         });
 
       const fromContent: string = await readTextFile(selectedFrom[0]);
@@ -29,9 +30,10 @@
       );
 
       if (arrayToPathExists.includes(false)) {
-        return message("Selected destination beatmap not found", {
-          title: "Hitsound Copier",
-          type: "error",
+        return window.sendNotification({
+          color: "error",
+          message: "Selected destination beatmap(s) file(s) not found",
+          icon: "error",
         });
       }
 
@@ -47,15 +49,14 @@
         overwriteNotDefined: overwriteNotDefinedOption,
       });
 
-      await message(
-        `Hitsounds copied successfully to ${copiedHitsound.length} beatmaps!`,
-        {
-          title: "Done!",
-        }
-      );
-
       copiedHitsound.forEach(async (hitsoundedBeatmap, key) => {
         await writeFile(selectedTo[key], hitsoundedBeatmap);
+      });
+
+      window.sendNotification({
+        color: "primary",
+        message: `Hitsounds copied successfully to ${copiedHitsound.length} beatmaps!`,
+        icon: "check",
       });
     } catch (e) {
       console.log(e);
@@ -78,11 +79,11 @@
     isUnique={false}
     bind:defaultFilePath={selectedFrom}
   />
-  <div class="row">
-    <span>Options</span>
-  </div>
-  <div class="small-divider" />
   <article class="surface-variant">
+    <div class="row">
+      <span>Options</span>
+    </div>
+    <div class="small-divider" />
     <div class="row">
       <div class="field middle-align max">
         <nav>
@@ -159,9 +160,12 @@
       </div>
     </div>
   </article>
-  <div class="row">
+  <div class="row btn-row">
     <div class="max" />
-    <button class="extend square round" on:click={copyHitsoundsAction}>
+    <button
+      class="extend square round small-elevate"
+      on:click={copyHitsoundsAction}
+    >
       <i>check</i>
       <span>Copy Hitsound</span>
     </button>
@@ -169,4 +173,11 @@
 </div>
 
 <style>
+  .btn-row {
+    padding: 2rem;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+  }
 </style>
