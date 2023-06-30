@@ -1,20 +1,24 @@
 <script lang="ts">
   import { Route, Router } from "svelte-routing";
-  import HeaderBar from "./lib/HeaderBar.svelte";
   import SideBar from "./lib/SideBar.svelte";
   import HitsoundCopier from "./tabs/HitsoundCopier.svelte";
   import Changelog from "./tabs/Changelog.svelte";
+  import { onMount, setContext, tick } from "svelte";
+
+  onMount(async () => {
+    await ui("theme", "#c43b80");
+  });
 </script>
 
-<HeaderBar />
-<SideBar />
-<main class="surface responsive max">
-  <Router>
-    <Route path="/">
+<Router>
+  <SideBar />
+  <main class="surface responsive max">
+    <Route path="/home">
       <Changelog />
     </Route>
     <Route path="/hs-copier">
       <HitsoundCopier />
     </Route>
-  </Router>
-</main>
+    <Route path="/settings" />
+  </main>
+</Router>

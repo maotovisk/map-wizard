@@ -87,7 +87,7 @@
       <div class="field middle-align max">
         <nav>
           <div class="max">
-            <span>Remove muting</span>
+            <strong>Remove muting</strong>
             <div>Removes the 5% volume greenlines</div>
           </div>
           <label class="switch">
@@ -101,7 +101,7 @@
       <div class="field middle-align max">
         <nav>
           <div class="max">
-            <span>Copy sampleset changes</span>
+            <strong>Copy sampleset changes</strong>
             <div>Copy all the sampleset changes in greenlines</div>
           </div>
           <label class="switch">
@@ -115,7 +115,7 @@
       <div class="field middle-align max">
         <nav>
           <div class="max">
-            <span>Copy volumes changes</span>
+            <strong>Copy volumes changes</strong>
             <div>Copy all the volumes changes in greenlines</div>
           </div>
           <label class="switch">
@@ -129,7 +129,7 @@
       <div class="field middle-align max">
         <nav>
           <div class="max">
-            <span>Ovewrite all hitsounds</span>
+            <strong>Ovewrite all hitsounds</strong>
             <div>
               All hitsounds not defined in the origin beatmap will also be not
               defined in the target
@@ -146,7 +146,7 @@
       <div class="field middle-align max">
         <nav>
           <div class="max">
-            <span>Timing threshould</span>
+            <strong>Timing threshould</strong>
             <div>
               Current threshould: {timingThresholdOption}ms
             </div>

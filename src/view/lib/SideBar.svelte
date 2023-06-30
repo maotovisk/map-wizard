@@ -1,31 +1,37 @@
-<script>
-  import { link } from "svelte-routing";
+<script lang="ts">
+  import { Link } from "svelte-routing";
 
-  const closeNav = () => {
-    ui("#nav-main");
+  let currentUrl = "";
+
+  const updateUrl = (toRoute: string) => {
+    currentUrl = toRoute;
   };
 </script>
 
-<dialog class="left surface" id="nav-main">
-  <header class="fixed">
-    <nav>
-      <button class="transparent circle large" on:click={closeNav}>
-        <i>close</i>
-      </button>
-    </nav>
-  </header>
-  <a use:link let:active class="row round" href="/" on:click={closeNav}>
+<nav class="m l left secondary">
+  <header class="fixed" />
+  <Link
+    class="row round {currentUrl.includes('/home') ? 'active' : ''}"
+    to="/home"
+    on:click={() => updateUrl("/home")}
+  >
     <i>home</i>
     <span>Start</span>
-  </a>
-  <a use:link class="row round" href="/hs-copier" on:click={closeNav}>
+  </Link>
+  <Link
+    class="row round {currentUrl.includes('/hs-copier') ? 'active' : ''}"
+    to="/hs-copier"
+    on:click={() => updateUrl("/hs-copier")}
+  >
     <i>file_copy</i>
     <span>Hitsound Copier</span>
-  </a>
-  <div class="small-divider" />
-  <div class="row">Settings</div>
-  <a a use:link class="row round" href="/settings" on:click={closeNav}>
+  </Link>
+  <Link
+    class="row round {currentUrl.includes('/settings') ? 'active' : ''}"
+    to="/settings"
+    on:click={() => updateUrl("/settings")}
+  >
     <i>settings</i>
     <span>Settings</span>
-  </a>
-</dialog>
+  </Link>
+</nav>
