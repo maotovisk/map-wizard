@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "hitsound-copier",
-    "version": "0.0.4"
+    "version": "0.0.5"
   },
   "tauri": {
     "allowlist": {
@@ -71,8 +71,8 @@
         "title": "Hitsound Copier",
         "decorations": false,
         "transparent": true,
-        "width": 800,
-        "height": 600
+        "width": 1280,
+        "height": 720
       }
     ]
   }

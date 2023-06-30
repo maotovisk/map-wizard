@@ -1,4 +1,7 @@
-import type { HitsoundableTimeLineObject, Options } from "src/copier/types";
+import type {
+  HitsoundableTimeLineObject,
+  Options,
+} from "src/tools/copier/types";
 
 import {
   SliderTail,

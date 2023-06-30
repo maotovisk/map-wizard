@@ -1,7 +1,12 @@
 import type { StandardBeatmap } from "osu-standard-stable";
-import type { Options } from "src/copier/types";
+import type { Options } from "../../types";
 
-import { ControlPointType, DifficultyPoint } from "osu-classes";
+import {
+  ControlPointType,
+  DifficultyPoint,
+  SamplePoint,
+  TimingPoint,
+} from "osu-classes";
 import { isMuted } from "./is-muted";
 
 type CopySamplePointsParams = {
@@ -64,24 +69,15 @@ export const copySamplePoints = ({
     firstDestinationControlPointGroup.startTime <
     firstOriginControlPointGroup.startTime;
 
-  const sameSamplePointType =
-    firstDestinationControlPointGroup.controlPoints[0].pointType ===
-    ControlPointType.SamplePoint;
-
-  const noTimingPointsInDestination =
-    firstDestinationControlPointGroup.controlPoints.filter(
-      (controlPoint) => controlPoint.pointType === ControlPointType.TimingPoint
-    ).length < 1;
+  const firstControlPointGroupHasNotTimingPoint =
+    !firstDestinationControlPointGroup.controlPoints.find((controlPoint) => {
+      controlPoint instanceof TimingPoint;
+    });
 
   if (
     destinationStartTimeHappensFirst &&
-    sameSamplePointType &&
-    noTimingPointsInDestination
+    firstControlPointGroupHasNotTimingPoint
   ) {
-    destinationBeatmap.controlPoints
-      .groupAt(secondDestionationControlPointGroup.startTime)
-      .add(firstDestinationControlPointGroup.controlPoints[0]);
-
     destinationBeatmap.controlPoints.groups.shift();
 
     const difficultyPointInSecondDestinationGroup =
@@ -97,6 +93,26 @@ export const copySamplePoints = ({
       destinationBeatmap.controlPoints
         .groupAt(secondDestionationControlPointGroup.startTime)
         .add(newDifficultyPoint);
+    }
+  }
+
+  if (!firstControlPointGroupHasNotTimingPoint) {
+    const firstControlPointGroupHasDifficultyPoint =
+      firstDestinationControlPointGroup.controlPoints.find((controlPoint) => {
+        controlPoint instanceof DifficultyPoint;
+      });
+
+    if (firstControlPointGroupHasDifficultyPoint) {
+      const newDifficultyPoint = new DifficultyPoint();
+      newDifficultyPoint.sliderVelocity = 1;
+
+      destinationBeatmap.controlPoints
+        .groupAt(firstDestinationControlPointGroup.startTime)
+        .add(newDifficultyPoint);
+    } else {
+      destinationBeatmap.controlPoints.difficultyPointAt(
+        firstDestinationControlPointGroup.startTime
+      ).sliderVelocity = 1;
     }
   }
 };
