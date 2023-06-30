@@ -4,20 +4,27 @@
   import HitsoundCopier from "./tabs/HitsoundCopier.svelte";
   import Changelog from "./tabs/Changelog.svelte";
   import { onMount } from "svelte";
-  import Toast from "./lib/Toast.svelte";
   import Settings from "./tabs/Settings.svelte";
+  import { appWindow } from "@tauri-apps/api/window";
 
   onMount(async () => {
     await ui("theme", "#c43b80");
+    const mode = await appWindow.theme();
+    await ui("mode", mode);
   });
 </script>
 
 <Router url={"/home"}>
   <SideBar />
   <main class="surface responsive max">
-    <Route path="/home" component={Changelog} />
-    <Route path="/hs-copier" component={HitsoundCopier} />
-    <Route path="/settings" component={Settings} />
+    <Route path="/home">
+      <div class="page active"><Changelog /></div>
+    </Route>
+    <Route path="/hs-copier">
+      <div class="page active"><HitsoundCopier /></div>
+    </Route>
+    <Route path="/settings">
+      <div class="page active"><Settings /></div>
+    </Route>
   </main>
 </Router>
-<Toast />
