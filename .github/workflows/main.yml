@@ -3,7 +3,9 @@ on:
   push:
     branches:
       - main
-
+permissions:
+  contents: write
+  
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -98,8 +100,8 @@ jobs:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
         with:
           tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          release_body: 'This is a automated release.'
+          name: Release ${{ github.ref }}
+          body: 'This is a automated release.'
           prerelease: false
           draft: true
           files: ./artifacts/**/*
