@@ -14,13 +14,38 @@
   let overwriteNotDefinedOption: boolean = true;
   let timingThresholdOption: number = 5;
 
+  let toastIcon: string = "";
+  let toastMessage: string = "";
+  let toastColor: string = "";
+
+  // This is a hack to make sure that the toast notification is triggered in the first time it is called;
+  let hasNotification: boolean = false;
+
+  const sendNotification = async ({
+    notificationColor,
+    notificationIcon,
+    notificationMessage,
+  }: {
+    notificationIcon;
+    notificationMessage;
+    notificationColor;
+  }) => {
+    // Hack mentioned above
+    hasNotification = true;
+    await ui("#notificacao");
+
+    toastIcon = notificationIcon;
+    toastMessage = notificationMessage;
+    toastColor = notificationColor;
+  };
+
   const copyHitsoundsAction = async () => {
     try {
       if (selectedFrom.length == 0 || !(await exists(selectedFrom[0])))
-        return window.sendNotification({
-          color: "error",
-          message: "Selected origin beatmap file not found",
-          icon: "error",
+        return await sendNotification({
+          notificationColor: "error",
+          notificationMessage: "Selected origin beatmap file not found",
+          notificationIcon: "error",
         });
 
       const fromContent: string = await readTextFile(selectedFrom[0]);
@@ -30,10 +55,11 @@
       );
 
       if (arrayToPathExists.includes(false)) {
-        return window.sendNotification({
-          color: "error",
-          message: "Selected destination beatmap(s) file(s) not found",
-          icon: "error",
+        return await sendNotification({
+          notificationColor: "error",
+          notificationMessage:
+            "Selected destination beatmap(s) file(s) not found",
+          notificationIcon: "error",
         });
       }
 
@@ -53,14 +79,19 @@
         await writeFile(selectedTo[key], hitsoundedBeatmap);
       });
 
-      window.sendNotification({
-        color: "primary",
-        message: `Hitsounds copied successfully to ${copiedHitsound.length} beatmaps!`,
-        icon: "check",
+      return await sendNotification({
+        notificationColor: "primary",
+        notificationMessage: `Hitsounds copied successfully to ${copiedHitsound.length} beatmaps!`,
+        notificationIcon: "check",
       });
     } catch (e) {
       console.log(e);
-      return message(e, { title: "Hitsound Copier", type: "error" });
+      return await sendNotification({
+        notificationColor: "error",
+        notificationMessage:
+          "An error occourred while copying hitosunds: " + e.getMessage(),
+        notificationIcon: "error",
+      });
     }
   };
 </script>
@@ -171,13 +202,10 @@
     </button>
   </div>
 </div>
+<div class="toast {toastColor}" class:active={hasNotification} id="notificacao">
+  <i>{toastIcon}</i>
+  <span>{toastMessage}</span>
+</div>
 
 <style>
-  .btn-row {
-    padding: 2rem;
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    z-index: 1;
-  }
 </style>
