@@ -68,7 +68,7 @@ jobs:
           
       - name: Install node dependencies
         run: pnpm install
-        
+
       - uses: JonasKruckenberg/tauri-build@v1.2.2
         id: tauri_build
         with:
@@ -97,5 +97,10 @@ jobs:
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
         with:
+          tagName: v__VERSION__ 
+          releaseName: 'v__VERSION__'
+          releaseBody: 'This is a automated release.'
+          releaseDraft: true
+          prerelease: false
           draft: false
           files: ./artifacts/**/*
