@@ -4,7 +4,11 @@
 
 Cross-platfrom first tools for osu! standard beatmaps (for now) written in TypeScript, using tauri and osu!lazer's logic as the foundation. It was done so we could have a mapping toolset solution that was friendly to run on Linux without the need of third party tools (aka. wine and VMs).
 
-<br/>
+### Built with
+
+- Tauri
+- TypeScript
+- [osu-parsers](https://github.com/kionell/osu-parsers)
 
 ## Tools
 
@@ -18,12 +22,6 @@ Cross-platfrom first tools for osu! standard beatmaps (for now) written in TypeS
 - Add colourhax helper functionality.
 - Fix some unnecessary greenlines being generated.
 - Release to flathub.
-
-### Built with
-
-- Tauri
-- TypeScript
-- [osu-parsers](https://github.com/kionell/osu-parsers)
 
 <br/>
 
