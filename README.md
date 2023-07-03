@@ -1,11 +1,24 @@
 <p align="center"><img src="app-icon.png" alt="logo" width="200"/></p>
 
-# Hitsound Copier
+# MapWizard
 
-<img align="right" src="https://github.com/maotovisk/hitsound-copier/assets/20617307/9f6e99dc-9d95-4413-b204-171ccf5bc5fd" alt="preview" width="400"/>
-Cross platfrom hitsound copier for osu! standard beatmaps (for now) written in TypeScript, using osu!lazer's hitsound logic as the foundation. It was done so we could have a hitsound copier solution that was friendly to run on Linux without the need of third party tools.
+<img align="right" src="https://github.com/maotovisk/map-wizard/assets/20617307/9f6e99dc-9d95-4413-b204-171ccf5bc5fd" alt="preview" width="400"/>
+Cross-platfrom first tools for osu! standard beatmaps (for now) written in TypeScript, using tauri and osu!lazer's logic as the foundation. It was done so we could have a mapping toolset solution that was friendly to run on Linux without the need of third party tools (aka. wine and VMs).
 
 <br/>
+
+## Tools
+
+- Hitsound Copier
+- Metadata Manager
+
+## TODOs
+
+- Add map cleaner funcionality.
+- Add support to persist the data.
+- Add colourhax helper functionality.
+- Fix some unnecessary greenlines being generated.
+- Release to flathub.
 
 ### Built with
 
@@ -16,6 +29,7 @@ Cross platfrom hitsound copier for osu! standard beatmaps (for now) written in T
 <br/>
 
 ## Running
+
 You can either grab the [latest release](https://github.com/octo-org/octo-repo/releases/latest) or build it by yourself.
 
 ### Building
@@ -30,7 +44,6 @@ Requirements
 
 #### 1. Clone the project
 
-
 ```bash
 git clone https://github.com/maotovisk/hitsound-copier.git
 ```
@@ -38,7 +51,7 @@ git clone https://github.com/maotovisk/hitsound-copier.git
 #### 2. Install the project's dependencies
 
 ```bash
-pnpm install 
+pnpm install
 # pnpm i
 ```
 
@@ -48,9 +61,8 @@ pnpm install
 pnpm tauri dev
 ```
 
-## TODOs
+## Special thanks
 
-- Add metadata manager funcionality.
-- Add map cleaner funcionality.
-- Fix some unnecessary greenlines being generated.
-- Release to flathub.
+- OliBomby for buildig the [Mapping Tools](https://github.com/OliBomby/Mapping_Tools) project, which is the main inpiration we took from.
+- kionell for building [this amazing library](https://github.com/kionell/osu-parsers) that we are using to parse the .osu files.
+- Seto Kousuke for waiting for me to finish working on this to play some switch games.

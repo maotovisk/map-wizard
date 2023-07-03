@@ -8,7 +8,7 @@
   };
 </script>
 
-<nav class="left secondary">
+<nav class="left primary">
   <header class="fixed" />
   <Link
     class="row round {currentUrl.includes('/home') ? 'active' : ''}"
@@ -25,6 +25,14 @@
   >
     <i>file_copy</i>
     <span>Hitsound Copier</span>
+  </Link>
+  <Link
+    class="row round {currentUrl.includes('/metadata-manager') ? 'active' : ''}"
+    to="/metadata-manager"
+    on:click={() => updateUrl("/metadata-manager")}
+  >
+    <i>quick_reference</i>
+    <span>Metadata Manager</span>
   </Link>
   <div class="max" />
   <div class="medium-divisor" />

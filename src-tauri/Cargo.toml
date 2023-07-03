@@ -1,5 +1,5 @@
 [package]
-name = "hitsound-copier"
+name = "map-wizard"
 version = "0.0.8"
 description = "A osu! mapping toolbox made in TS with tauri"
 authors = ["maotovisk"]
