@@ -2,7 +2,6 @@
 
 # MapWizard
 
-<img align="right" src="https://github.com/maotovisk/map-wizard/assets/20617307/9f6e99dc-9d95-4413-b204-171ccf5bc5fd" alt="preview" width="400"/>
 Cross-platfrom first tools for osu! standard beatmaps (for now) written in TypeScript, using tauri and osu!lazer's logic as the foundation. It was done so we could have a mapping toolset solution that was friendly to run on Linux without the need of third party tools (aka. wine and VMs).
 
 <br/>
