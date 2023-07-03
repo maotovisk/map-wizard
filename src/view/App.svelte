@@ -6,11 +6,12 @@
   import { onMount } from "svelte";
   import Settings from "./tabs/Settings.svelte";
   import { appWindow } from "@tauri-apps/api/window";
+  import MetadataManager from "./tabs/MetadataManager.svelte";
 
   onMount(async () => {
-    await ui("theme", "#c43b80");
     const mode = await appWindow.theme();
     await ui("mode", mode);
+    await ui("theme", "#046494");
   });
 </script>
 
@@ -22,6 +23,9 @@
     </Route>
     <Route path="/hs-copier">
       <div class="page active"><HitsoundCopier /></div>
+    </Route>
+    <Route path="/metadata-manager">
+      <div class="page active"><MetadataManager /></div>
     </Route>
     <Route path="/settings">
       <div class="page active"><Settings /></div>
