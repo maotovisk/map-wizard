@@ -1,8 +1,5 @@
 import type { StandardBeatmap, StandardHitObject } from "osu-standard-stable";
-import type {
-  HitsoundableTimeLineObject,
-  Options,
-} from "src/tools/copier/types";
+import type { HitsoundableTimeLineObject, Options } from "../../types";
 
 import { HitSample, HitSound } from "osu-classes";
 import { findNearestHitObject } from "../../utils";

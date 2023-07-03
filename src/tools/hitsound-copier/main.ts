@@ -5,18 +5,18 @@ import { copyHitsounds } from "./copy-hitsounds";
 
 const copy = (
   fromContent: string,
-  toContent: string[],
+  destinationBeatmapsContent: string[],
   options: Options
 ): string[] => {
   const decoder = new BeatmapDecoder();
   const ruleset = new StandardRuleset();
 
-  const beatmapFrom = ruleset.applyToBeatmap(
+  const originBeatmap = ruleset.applyToBeatmap(
     decoder.decodeFromString(fromContent, {
       parseStoryboard: true,
     })
   );
-  const beatmapsTo = toContent.map((beatmapString) =>
+  const destinationBeatmaps = destinationBeatmapsContent.map((beatmapString) =>
     ruleset.applyToBeatmap(
       decoder.decodeFromString(beatmapString, {
         parseStoryboard: true,
@@ -24,8 +24,8 @@ const copy = (
     )
   );
 
-  const hitsoundedBeatmap = beatmapsTo.map((beatmap) =>
-    copyHitsounds(beatmapFrom, beatmap, options)
+  const hitsoundedBeatmap = destinationBeatmaps.map((beatmap) =>
+    copyHitsounds(originBeatmap, beatmap, options)
   );
 
   const encoder = new BeatmapEncoder();

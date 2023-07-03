@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { appWindow } from "@tauri-apps/api/window";
   import { onMount } from "svelte";
 
   let darkMode: boolean = true;
-  const onChange = () => {
+  const onChange = async () => {
     ui("mode", darkMode ? "dark" : "light");
+    await ui("theme", "#046494");
   };
 
   onMount(async () => {

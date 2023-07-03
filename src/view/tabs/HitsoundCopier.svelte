@@ -2,7 +2,6 @@
   import FileInput from "../lib/FileInput.svelte";
 
   import { exists, readTextFile, writeFile } from "@tauri-apps/api/fs";
-  import { message } from "@tauri-apps/api/dialog";
   import { copy } from "../../tools/hitsound-copier/main";
 
   let selectedFrom: string[] = [];
@@ -96,9 +95,21 @@
   };
 </script>
 
-<div class="padding">
-  <h6>Hitsound Copier</h6>
+<header class="responsive fixed top" id="top-app-bar1">
+  <h6 class="row max">
+    Hitsound Copier
+    <div class="max" />
+    <button
+      class="extend square round small-elevate"
+      on:click={copyHitsoundsAction}
+    >
+      <i>content_copy</i>
+      <span>Copy Hitsound</span>
+    </button>
+  </h6>
   <div class="small-divider" />
+</header>
+<div class="padding">
   <FileInput
     textLabel="Beatmap you want to copy the hitsound from"
     bind:selected={selectedFrom}
@@ -191,16 +202,6 @@
       </div>
     </div>
   </article>
-  <div class="row btn-row">
-    <div class="max" />
-    <button
-      class="extend square round small-elevate"
-      on:click={copyHitsoundsAction}
-    >
-      <i>check</i>
-      <span>Copy Hitsound</span>
-    </button>
-  </div>
 </div>
 <div class="toast {toastColor}" class:active={hasNotification} id="notificacao">
   <i>{toastIcon}</i>

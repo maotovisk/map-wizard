@@ -42,26 +42,6 @@
     selected = [selectedFiles];
   };
 
-  const appendToSelection = async () => {
-    const rawSelect = await open({
-      multiple: true,
-      directory: false,
-      filters: [
-        {
-          name: "osu! beatmap",
-          extensions: ["osu"],
-        },
-      ],
-    });
-
-    if (!rawSelect) return;
-
-    const selectedFiles = Array.isArray(rawSelect) ? rawSelect : [rawSelect];
-
-    const uniqueSelectedFiles = new Set([...selected, ...selectedFiles]);
-    selected = [...uniqueSelectedFiles];
-  };
-
   const removeFromList = (elementToRemove: string) => {
     selected = selected.filter((elem) => elem !== elementToRemove);
 
@@ -75,7 +55,9 @@
   <div class="row middle-align">
     <div class="field label max">
       <input type="text" bind:value={selected[0]} />
-      <label>{textLabel}</label>
+      <label class:active={selected[0] && selected[0].toString().length > 0}>
+        {textLabel}
+      </label>
     </div>
     {#if !isUnique}
       <strong>Selected {selected.length} file(s)</strong>
@@ -83,6 +65,8 @@
     <button class="transparent circle" on:click={selectFrom}>
       <i>file_open</i>
     </button>
+
+    <slot />
   </div>
   {#if selected.length > 1}
     {#each selected as selected_file, i}
