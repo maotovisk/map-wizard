@@ -2,7 +2,7 @@
 
 # MapWizard
 
-Cross-platfrom first tools for osu! standard beatmaps (for now) written in TypeScript, using tauri and osu!lazer's logic as the foundation. It was done so we could have a mapping toolset solution that was friendly to run on Linux without the need of third party tools (aka. wine and VMs).
+Cross-platfrom-first tools for osu! standard beatmaps (for now) written in TypeScript, using tauri and osu!lazer's logic as the foundation. It was done so we could have a mapping toolset solution that was friendly to run on Linux without the need of third party tools (aka. wine and VMs).
 
 ### Built with
 
