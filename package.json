@@ -1,7 +1,7 @@
 {
   "name": "map-wizard",
   "private": true,
-  "version": "0.0.9",
+  "version": "0.0.10",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -11,10 +11,11 @@
     "tauri": "tauri"
   },
   "dependencies": {
-    "@fontsource/noto-sans-jp": "^5.0.3",
+    "@fontsource/noto-sans-jp": "^5.0.4",
+    "@igor.dvlpr/normalized-string": "^1.0.1",
     "@melloware/coloris": "^0.21.0",
     "@tauri-apps/api": "^1.4.0",
-    "beercss": "^3.2.10",
+    "beercss": "^3.2.13",
     "colorjoe": "^4.2.0",
     "hex-rgb": "^5.0.0",
     "material-dynamic-colors": "^0.1.7",
@@ -33,11 +34,11 @@
     "smui-theme": "7.0.0-beta.12",
     "svelte": "^3.59.2",
     "svelte-awesome-color-picker": "^2.4.6",
-    "svelte-check": "^3.4.4",
+    "svelte-check": "^3.4.5",
     "svelte-preprocess": "^5.0.4",
     "svelte-routing": "^1.11.0",
     "tslib": "^2.6.0",
     "typescript": "^4.9.5",
-    "vite": "^4.3.9"
+    "vite": "^4.4.1"
   }
 }
