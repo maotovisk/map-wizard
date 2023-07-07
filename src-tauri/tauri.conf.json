@@ -33,7 +33,6 @@
       "window": {
         "all": false,
         "close": true,
-
         "maximize": true,
         "minimize": true,
         "unmaximize": true,
