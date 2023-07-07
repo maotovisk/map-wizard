@@ -12,6 +12,8 @@
     BeatmapMetadata,
     BeatmapMetadataExporterOptions,
   } from "src/tools/metadata-manager/types";
+  import { LineEnding, NormalizedString } from "@igor.dvlpr/normalized-string";
+  import { Color4 } from "osu-classes";
 
   let selectedOriginPaths: string[] = [];
   let selectedDestinationPaths: string[] = [];
@@ -39,8 +41,8 @@
       widescreenStoryboard: false,
     },
     beatmapColours: {
-      sliderBorderColour: null,
-      sliderTrackColour: null,
+      sliderBorderColour: new Color4(255, 255, 255, 1),
+      sliderTrackColour: new Color4(255, 255, 255, 1),
       comboColours: [],
     },
   };
@@ -132,7 +134,12 @@
       });
 
       copiedMetadataBeatmaps.forEach(async (copiedMetadataBeatmap, key) => {
-        await writeFile(selectedDestinationPaths[key], copiedMetadataBeatmap);
+        // This encodes the beatmap to the windows CRLF formal.
+        const crlfBeatmap = new NormalizedString(
+          copiedMetadataBeatmap,
+          LineEnding.crlf
+        );
+        await writeFile(selectedDestinationPaths[key], crlfBeatmap.value);
       });
 
       return await sendNotification({

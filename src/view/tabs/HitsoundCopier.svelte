@@ -2,6 +2,7 @@
   import FileInput from "../lib/FileInput.svelte";
 
   import { exists, readTextFile, writeFile } from "@tauri-apps/api/fs";
+  import { NormalizedString, LineEnding } from "@igor.dvlpr/normalized-string";
   import { copy } from "../../tools/hitsound-copier/main";
 
   let selectedFrom: string[] = [];
@@ -75,7 +76,12 @@
       });
 
       copiedHitsound.forEach(async (hitsoundedBeatmap, key) => {
-        await writeFile(selectedTo[key], hitsoundedBeatmap);
+        // This encodes the beatmap to the windows CRLF formal.
+        const crlfBeatmap = new NormalizedString(
+          hitsoundedBeatmap,
+          LineEnding.crlf
+        );
+        await writeFile(selectedTo[key], crlfBeatmap.value);
       });
 
       return await sendNotification({
