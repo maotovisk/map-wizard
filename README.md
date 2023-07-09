@@ -60,6 +60,6 @@ pnpm tauri dev
 
 ## Special thanks
 
-- OliBomby for buildig the [Mapping Tools](https://github.com/OliBomby/Mapping_Tools) project, which is the main inpiration we took from.
+- OliBomby for buildig the [Mapping Tools](https://github.com/OliBomby/Mapping_Tools) project, which is the our main inspiration.
 - kionell for building [this amazing library](https://github.com/kionell/osu-parsers) that we are using to parse the .osu files.
 - Seto Kousuke for waiting for me to finish working on this to play some switch games.
